@@ -22,7 +22,7 @@
                 action: function (e, dt, node, config) {
                     $.ajax({
                         type: 'GET',
-                        url: '/Admin/User/GetAllUsers/',
+                        url: '/User/GetAllUsers/',
                         contentType: "application/json",
                         beforeSend: function () {
                             $('#usersTable').hide();
@@ -276,7 +276,7 @@
     /* Ekle Butonuna tıklandığında hangi actiona gitmesi gerektiğini belirtiyoruz.*/
     /* Ajax Get / Getting the _UserAddPartial as Modal Form starts from here..*/
     $(function () {
-        const url = '/Admin/User/Add/';
+        const url = '/User/Add/';
         const placeHolderDiv = $('#modalPlaceHolder');
         $('#btnAdd').click(function () { /*UserPartialView alıp geliyor actiondan--data categoryAddPartialView*/
             $.get(url).done(function (data) {
@@ -368,7 +368,7 @@
                         type: 'POST',
                         dataType: 'json',
                         data: { userId: id },
-                        url: '/Admin/User/Delete/',
+                        url: '/User/Delete/',
                         success: function (data) {
                             const userDto = jQuery.parseJSON(data);
                             if (userDto.ResultStatus === 0) {
@@ -400,7 +400,7 @@
 
     $(function () {
 
-        const url = '/Admin/User/Update/';
+        const url = '/User/Update/';
         const placeHolderDiv = $('#modalPlaceHolder');
         $(document).on('click',
             '.btn-update',

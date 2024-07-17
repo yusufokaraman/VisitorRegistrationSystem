@@ -29,13 +29,12 @@ namespace VisitorRegistrationSystem.Domain.DTOs.UserDTOs
 
         [DisplayName("İletişim No")]
         [Required(ErrorMessage = "{0} boş geçilememelidir.")]
-        [MaxLength(7, ErrorMessage = "{0} {1} karakterden büyük olamamalıdır")]
+        [MaxLength(11, ErrorMessage = "{0} {1} karakterden büyük olamamalıdır")]
         [MinLength(7, ErrorMessage = "{0} {1} karakterden küçük olmamalıdır")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
         [DisplayName("Resim")]
-        [Required(ErrorMessage = "Lütfen bir {0} seçiniz.")]
         [DataType(DataType.Upload)]
         public IFormFile PictureFile { get; set; }
 

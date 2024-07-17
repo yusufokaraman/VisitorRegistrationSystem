@@ -22,7 +22,7 @@
                 action: function (e, dt, node, config) {
                     $.ajax({
                         type: 'GET',
-                        url: '/Admin/Visitor/GetAllVisitor/',
+                        url: '/Visitor/GetAllVisitor/',
                         contentType: "application/json",
                         beforeSend: function () {
                             $('#visitorsTable').hide();
@@ -281,7 +281,7 @@
 
     // Ajax Get / Getting the _VisitorAddPartial as Modal Form starts from here..
     $(function () {
-        const url = '/Admin/Visitor/Add/';
+        const url = '/Visitor/Add/';
         const placeHolderDiv = $('#modalPlaceHolder');
         $('#btnAdd').click(function () { /*VisitorPartialView alıp geliyor actiondan--data categoryAddPartialView*/
             $.get(url).done(function (data) {
@@ -382,7 +382,7 @@
                             type: 'POST',
                             dataType: 'json',
                             data: { visitorId: id },
-                            url: '/Admin/Visitor/Delete/',
+                            url: '/Visitor/Delete/',
                             success: function (data) {
                                 const visitorDto = jQuery.parseJSON(data);
                                 if (visitorDto.ResultStatus === 0) {
@@ -435,7 +435,7 @@
                             type: 'POST',
                             dataType: 'json',
                             data: { visitorId: id },
-                            url: '/Admin/Visitor/IsExit/',
+                            url: '/Visitor/IsExit/',
                             success: function (data) {
                                 const visitorDto = jQuery.parseJSON(data);
                                 console.log(visitorDto);

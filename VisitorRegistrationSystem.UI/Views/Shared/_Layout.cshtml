@@ -45,15 +45,25 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Tüm Hakları Saklıdır. &copy; Ziyaretçi Takip Sistemi 2021</div>
+                        <div class="text-muted">Tüm Hakları Saklıdır. &copy; <span id="currentYear"></span> Ziyaretçi Takip Sistemi</div>
                         <div>
                             <a href="#">Gizlilik Politikası</a>
                             &middot;
-
                         </div>
                     </div>
                 </div>
             </footer>
+
+            <script>
+                // Sayfa yüklendiğinde çalışacak bir fonksiyon
+                document.addEventListener("DOMContentLoaded", function () {
+                    // Geçerli yılın alınması
+                    var currentYear = new Date().getFullYear();
+                    // currentYear span öğesinin içine yılın yazılması
+                    document.getElementById("currentYear").textContent = currentYear;
+                });
+            </script>
+
         </div>
     </div>
     @await Html.PartialAsync("_LayoutJsPartial");

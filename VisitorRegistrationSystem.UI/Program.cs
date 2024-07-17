@@ -1,70 +1,97 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Text.Json.Serialization;
+using TurkishId.ModelBinder;
+using VisitorRegistrationSystem.Domain.Entitiy;
+using VisitorRegistrationSystem.Repository.Concrete;
 using VisitorRegistrationSystem.Repository.Context;
+using VisitorRegistrationSystem.Repository.IRepository;
 using VisitorRegistrationSystem.Services.AutoMapper.Profiles;
-using VisitorRegistrationSystem.Services.Extensions;
+using VisitorRegistrationSystem.Services.IServices;
+using VisitorRegistrationSystem.Services.Services;
 
-var builder = WebApplication.CreateBuilder(args);
+        var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddDbContext<VisitorDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+        // Add services to the container.
+        builder.Services.AddDbContext<VisitorDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
                    .LogTo(Console.WriteLine)
                    .EnableSensitiveDataLogging());
 
-//builder.Services.AddDefaultIdentity<IdentityUser>()
-//    .AddEntityFrameworkStores<VisitorDbContext>();
-// Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation().AddJsonOptions(opt =>
-{
-    opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        builder.Services.AddIdentity<User, Role>(options =>
+        {
+            // User password options
+            options.Password.RequireDigit = false;
+            options.Password.RequiredLength = 5;
+            options.Password.RequiredUniqueChars = 0;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireUppercase = false;
 
-});
-builder.Services.AddSession();
-builder.Services.AddAutoMapper(typeof(DepartmentProfile), typeof(UserProfile), typeof(VisitorProfile));
-builder.Services.LoadMyServices();
+            // User username and email options
+            options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+$";
+            options.User.RequireUniqueEmail = true;
+        })
+        .AddEntityFrameworkStores<VisitorDbContext>()
+        .AddDefaultTokenProviders();
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = new PathString("/User/Login");
-    options.LogoutPath = new PathString("/User/Logout");
-    options.Cookie = new CookieBuilder
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+        builder.Services.AddScoped<IDepartmentService, DepartmentManager>();
+        builder.Services.AddScoped<IVisitorService, VisitorManager>();
+
+builder.Services.AddControllersWithViews()
+    .AddRazorRuntimeCompilation()
+    .AddJsonOptions(opt =>
     {
-        Name = "VisitorSystem",
-        HttpOnly = true,
-        SameSite = SameSiteMode.Strict,
-        SecurePolicy = CookieSecurePolicy.SameAsRequest//Always
-
-    };
-    options.SlidingExpiration = true;
-    options.ExpireTimeSpan = System.TimeSpan.FromDays(1);
-    options.AccessDeniedPath = new PathString("/User/AccessDenied");
-
-});
+        opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    })
+    .AddMvcOptions(options =>
+    {
+        options.ModelBinderProviders.Insert(0, new TurkishIdModelBinderProvider());
+    });
 
 
-var app = builder.Build();
+builder.Services.AddSession();
+        builder.Services.AddAutoMapper(typeof(DepartmentProfile), typeof(UserProfile), typeof(VisitorProfile));
+        //builder.Services.LoadMyServices();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+        builder.Services.ConfigureApplicationCookie(options =>
+        {
+            options.LoginPath = new PathString("/User/Login");
+            options.LogoutPath = new PathString("/User/Logout");
+            options.Cookie = new CookieBuilder
+            {
+                Name = "VisitorRegistrationSystem",
+                HttpOnly = true,
+                SameSite = SameSiteMode.Strict,
+                SecurePolicy = CookieSecurePolicy.SameAsRequest
+            };
+            options.SlidingExpiration = true;
+            options.ExpireTimeSpan = TimeSpan.FromDays(1);
+            options.AccessDeniedPath = new PathString("/User/AccessDenied");
+        });
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+        var app = builder.Build();
 
-app.UseRouting();
+        // Configure the HTTP request pipeline.
+        if (!app.Environment.IsDevelopment())
+        {
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
+        }
 
-app.UseAuthorization();
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+        app.UseRouting();
 
-app.Run();
+        app.UseSession();
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+
+        app.Run();

@@ -23,7 +23,7 @@
                 action: function (e, dt, node, config) {
                     $.ajax({
                         type: 'GET',
-                        url: '/Admin/Department/GetAllDepartments/',
+                        url: '/Department/GetAllDepartments/',
                         contentType: "application/json",
                         beforeSend: function () {
                             $('#departmentsTable').hide();
@@ -109,10 +109,10 @@
 
     /* DataTables end here */
 
-    /* Ajax GET / Getting the _CategoryAddPartial as Modal Form starts from here. */
+    /* Ajax GET / Getting the _DepartmentAddPartial as Modal Form starts from here. */
 
     $(function () {
-        const url = '/Admin/Department/Add/';
+        const url = '/Department/Add/';
         const placeHolderDiv = $('#modalPlaceHolder');
         $('#btnAdd').click(function () {
             $.get(url).done(function (data) {
@@ -121,9 +121,9 @@
             });
         });
 
-        /* Ajax GET / Getting the _CategoryAddPartial as Modal Form ends here. */
+        /* Ajax GET / Getting the _DepartmentAddPartial as Modal Form ends here. */
 
-        /* Ajax POST / Posting the FormData as CategoryAddDto starts from here. */
+        /* Ajax POST / Posting the FormData as DepartmentAddDto starts from here. */
 
         placeHolderDiv.on('click',
             '#btnSave',
@@ -177,9 +177,9 @@
             });
     });
 
-    /* Ajax POST / Posting the FormData as CategoryAddDto ends here. */
+    /* Ajax POST / Posting the FormData as DepartmentAddDto ends here. */
 
-    /* Ajax POST / Deleting a Category starts from here */
+    /* Ajax POST / Deleting a Department starts from here */
 
     $(document).on('click',
         '.btn-delete',
@@ -203,7 +203,7 @@
                         type: 'POST',
                         dataType: 'json',
                         data: { departmentId: id },
-                        url: '/Admin/Department/Delete/',
+                        url: '/Department/Delete/',
                         success: function (data) {
                             const departmentDto = jQuery.parseJSON(data);
                             if (departmentDto.ResultStatus === 0) {
@@ -231,10 +231,10 @@
             });
         });
 
-    /* Ajax GET / Getting the _CategoryUpdatePartial as Modal Form starts from here. */
+    /* Ajax GET / Getting the _DepartmentUpdatePartial as Modal Form starts from here. */
 
     $(function () {
-        const url = '/Admin/Department/Update/';
+        const url = '/Department/Update/';
         const placeHolderDiv = $('#modalPlaceHolder');
         $(document).on('click',
             '.btn-update',
@@ -249,7 +249,7 @@
                 });
             });
 
-        /* Ajax POST / Updating a Category starts from here */
+        /* Ajax POST / Updating a Department starts from here */
 
         placeHolderDiv.on('click',
             '#btnUpdate',

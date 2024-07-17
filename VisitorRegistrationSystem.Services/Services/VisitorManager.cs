@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TurkishId;
 using VisitorRegistrationSystem.Common.Utility.Results.Abstract;
 using VisitorRegistrationSystem.Common.Utility.Results.Concrete;
 using VisitorRegistrationSystem.Common.Utility.Results.Types;
@@ -17,10 +18,15 @@ namespace VisitorRegistrationSystem.Services.Services
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-
         }
         public async Task<IDataResult<VisitorDto>> Add(VisitorAddDto visitorAddDto, string createdByName)
         {
+            // T.C. Kimlik No doğrulama
+            var isValid = TurkishIdNumber.IsValid(visitorAddDto.TcNo.ToString());
+
+            if (!isValid)
+                return new DataResult<VisitorDto>(ResultStatus.Error, null, "Geçersiz T.C. Kimlik No");
+
             var visitor = _mapper.Map<Visitor>(visitorAddDto);
             visitor.CreatedByName = createdByName;
             visitor.ModifiedByName = createdByName;
@@ -107,7 +113,6 @@ namespace VisitorRegistrationSystem.Services.Services
 
                     Visitors = (List<Visitor>)visitors,
                     ResultStatus = ResultStatus.Success
-
 
                 });
             }
@@ -248,6 +253,33 @@ namespace VisitorRegistrationSystem.Services.Services
                 Message = "Böyle bir ziyaretçi kaydı bulunamamışır."
 
             }, "Böyle bir ziyaretçi kaydı bulunamamışır.");
+        }
+
+        public async Task<IDataResult<VisitorDto>> Update(VisitorUpdateDto visitorUpdateDto, string modifiedByName)
+        {
+            var visitor = await _unitOfWork.Visitors.GetAsync(c => c.Id == visitorUpdateDto.Id);
+            if (visitor == null)
+            {
+                return new DataResult<VisitorDto>(ResultStatus.Error, new VisitorDto()
+                {
+                    Visitor = null,
+                    ResultStatus = ResultStatus.Error,
+                    Message = "Böyle bir ziyaretçi kaydı bulunamamışır."
+                }, "Böyle bir ziyaretçi kaydı bulunamamışır.");
+            }
+
+            _mapper.Map(visitorUpdateDto, visitor);
+            visitor.ModifiedByName = modifiedByName;
+            visitor.ModifiedDate = DateTime.Now;
+
+            var updatedVisitor = await _unitOfWork.Visitors.UpdateAsync(visitor);
+            await _unitOfWork.SaveAsync();
+            return new DataResult<VisitorDto>(ResultStatus.Success, new VisitorDto()
+            {
+                Visitor = updatedVisitor,
+                ResultStatus = ResultStatus.Success,
+                Message = $"{visitor.FirstName + visitor.LastName} ziyaretçi kaydı başarıyla güncellenmiştir."
+            }, $"{visitor.FirstName + visitor.LastName} ziyaretçi kaydı başarıyla güncellenmiştir.");
         }
     }
 }

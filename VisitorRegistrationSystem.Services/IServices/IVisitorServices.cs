@@ -20,6 +20,7 @@ namespace VisitorRegistrationSystem.Services.IServices
 
         Task<IDataResult<VisitorDto>> Delete(int visitorId, string modifieldByName);
         Task<IResult> HardDelete(int visitorId);
+        Task<IDataResult<VisitorDto>> Update(VisitorUpdateDto visitorUpdateDto, string modifiedByName);
 
 
     }

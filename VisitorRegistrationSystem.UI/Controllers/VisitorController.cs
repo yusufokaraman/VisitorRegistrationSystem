@@ -70,7 +70,6 @@ namespace VisitorRegistrationSystem.UI.Controllers
                     Departments = result.Data.Departments,
                     BirthDate = DateTime.Now
 
-
                 });
             }
             return NotFound();

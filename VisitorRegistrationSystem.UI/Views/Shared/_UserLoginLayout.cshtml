@@ -22,15 +22,25 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Tüm Telif Hakları Saklıdır &copy; Ziyaretçi Takip Sistemi 2021</div>
+                        <div class="text-muted">Tüm Hakları Saklıdır. &copy; <span id="currentYear"></span> Ziyaretçi Takip Sistemi</div>
                         <div>
                             <a href="#">Gizlilik Politikası</a>
                             &middot;
-                            <a href="#">Şartlar &amp; Haklar</a>
                         </div>
                     </div>
                 </div>
             </footer>
+
+            <script>
+                // Sayfa yüklendiğinde çalışacak bir fonksiyon
+                document.addEventListener("DOMContentLoaded", function () {
+                    // Geçerli yılın alınması
+                    var currentYear = new Date().getFullYear();
+                    // currentYear span öğesinin içine yılın yazılması
+                    document.getElementById("currentYear").textContent = currentYear;
+                });
+            </script>
+
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>

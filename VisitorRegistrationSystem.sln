@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitorRegistrationSystem.Domain", "VisitorRegistrationSystem.Domain\VisitorRegistrationSystem.Domain.csproj", "{11E7C36B-C871-45F6-B77A-27D2AB5281D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitorRegistrationSystem.Domain", "VisitorRegistrationSystem.Domain\VisitorRegistrationSystem.Domain.csproj", "{11E7C36B-C871-45F6-B77A-27D2AB5281D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitorRegistrationSystem.Common", "VisitorRegistrationSystem.Common\VisitorRegistrationSystem.Common.csproj", "{B237E4A8-9A75-4B13-A22A-69CF4E3B2D8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitorRegistrationSystem.Common", "VisitorRegistrationSystem.Common\VisitorRegistrationSystem.Common.csproj", "{B237E4A8-9A75-4B13-A22A-69CF4E3B2D8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitorRegistrationSystem.Repository", "VisitorRegistrationSystem.Repository\VisitorRegistrationSystem.Repository.csproj", "{2D659DF7-427B-41A9-BCDF-F05BED9CF60D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitorRegistrationSystem.Repository", "VisitorRegistrationSystem.Repository\VisitorRegistrationSystem.Repository.csproj", "{2D659DF7-427B-41A9-BCDF-F05BED9CF60D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitorRegistrationSystem.Services", "VisitorRegistrationSystem.Services\VisitorRegistrationSystem.Services.csproj", "{04EC7218-A5E4-4515-A90E-8E04D4FF9165}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitorRegistrationSystem.Services", "VisitorRegistrationSystem.Services\VisitorRegistrationSystem.Services.csproj", "{04EC7218-A5E4-4515-A90E-8E04D4FF9165}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitorRegistrationSystem.UI", "VisitorRegistrationSystem.UI\VisitorRegistrationSystem.UI.csproj", "{28C9C54C-AC64-47A6-9022-3C732604FCB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisitorRegistrationSystem.UI", "VisitorRegistrationSystem.UI\VisitorRegistrationSystem.UI.csproj", "{28C9C54C-AC64-47A6-9022-3C732604FCB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisitorRegistrationSystem.API", "VisitorRegistrationSystem.API\VisitorRegistrationSystem.API.csproj", "{C63607FA-9ADE-4B8F-8851-89EF1B24EE39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{28C9C54C-AC64-47A6-9022-3C732604FCB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28C9C54C-AC64-47A6-9022-3C732604FCB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28C9C54C-AC64-47A6-9022-3C732604FCB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C63607FA-9ADE-4B8F-8851-89EF1B24EE39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C63607FA-9ADE-4B8F-8851-89EF1B24EE39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C63607FA-9ADE-4B8F-8851-89EF1B24EE39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C63607FA-9ADE-4B8F-8851-89EF1B24EE39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

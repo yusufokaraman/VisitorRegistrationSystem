@@ -22,7 +22,7 @@
                 action: function (e, dt, node, config) {
                     $.ajax({
                         type: 'GET',
-                        url: '/Admin/Role/GetAllRoles/',
+                        url: '/Role/GetAllRoles/',
                         contentType: "application/json",
                         beforeSend: function () {
                             $('#rolesTable').hide();
@@ -275,7 +275,7 @@
     /* Ajax Get / Getting the _RoleAddPartial as Modal Form starts from here..*/
 
     $(function () {
-        const url = '/Admin/Role/Add/';
+        const url = '/Role/Add/';
         const placeHolderDiv = $('#modalPlaceHolder');
         $('#btnAdd').click(function () { /*RolePartialView alıp geliyor actiondan--data roleAddPartialView*/
             $.get(url).done(function (data) {
@@ -364,7 +364,7 @@
                         type: 'POST',
                         dataType: 'json',
                         data: { roleId: id },
-                        url: '/Admin/Role/Delete/',
+                        url: '/Role/Delete/',
                         success: function (data) {
                             const roleDto = jQuery.parseJSON(data);
                             if (roleDto.ResultStatus === 0) {

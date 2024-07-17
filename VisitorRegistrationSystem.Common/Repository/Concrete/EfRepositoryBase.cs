@@ -32,7 +32,6 @@ namespace VisitorRegistrationSystem.Common.Repository.Concrete
 
         public async Task DeleteAsync(Tentity entity)
         {
-            //Taski deleteasync olmadığı için kendimiz oluştuyoruz.
             await Task.Run(() => { _dbContext.Set<Tentity>().Remove(entity); });
         }
 

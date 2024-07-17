@@ -12,13 +12,13 @@ namespace VisitorRegistrationSystem.Repository.Context
             : base(options)
         {
         }
+
         public DbSet<Visitor> Visitors { get; set; }
-
         public DbSet<Department> Departments { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new VisitorMap());
             modelBuilder.ApplyConfiguration(new DepartmentMap());
             modelBuilder.ApplyConfiguration(new RoleMap());
